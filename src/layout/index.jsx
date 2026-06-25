@@ -25,7 +25,7 @@ const DashboardLayout = () => {
         <Navbar setOpen={setOpen} />
 
         {/* Dynamic page renders here */}
-        <main className="m-2 md:m-3 lg:m-4">
+        <main className="m-2 md:m-4">
           <Outlet />
         </main>
       </div>

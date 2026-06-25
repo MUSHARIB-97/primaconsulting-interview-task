@@ -29,7 +29,7 @@ const Navbar = ({ setOpen }) => {
 
   return (
     <header className="sticky top-0 z-30 bg-[#f7f7f8] px-0 py-0">
-      <div className="bg-white px-6 py-3.5 flex items-center justify-between shadow-sm">
+      <div className="bg-white px-2.5 md:px-5 py-3.5 flex items-center justify-between shadow-sm">
         {/* Left */}
         <div className="flex items-center gap-4">
           <button className="lg:hidden" onClick={() => setOpen(true)}>
