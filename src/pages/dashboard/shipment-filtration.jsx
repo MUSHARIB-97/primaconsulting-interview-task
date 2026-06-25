@@ -1,6 +1,13 @@
+import { useRef } from "react";
 import { Search, CalendarDays, ChevronDown, Filter } from "lucide-react";
 
 const ShipmentFiltration = () => {
+  const monthPickerRef = useRef(null);
+
+  const openMonthPicker = () => {
+    monthPickerRef.current?.showPicker?.();
+  };
+
   return (
     <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
       {/* Title */}
@@ -8,7 +15,7 @@ const ShipmentFiltration = () => {
         Shipments Data
       </h2>
 
-      {/* Search (takes all remaining space) */}
+      {/* Search */}
       <div className="relative flex-1">
         <Search
           size={18}
@@ -31,11 +38,21 @@ const ShipmentFiltration = () => {
           <ChevronDown size={14} />
         </button>
 
-        {/* Date */}
-        <button className="flex items-center justify-center flex-1 gap-2 px-4 py-3 text-sm transition border border-gray-100 lg:flex-none bg-gray-50 rounded-xl hover:bg-gray-100">
+        {/* Date Picker */}
+        <button
+          onClick={openMonthPicker}
+          className="relative flex items-center justify-center flex-1 gap-2 px-4 py-3 text-sm transition border border-gray-100 lg:flex-none bg-gray-50 rounded-xl hover:bg-gray-100 whitespace-nowrap"
+        >
           <CalendarDays size={16} />
           <span>March 2025</span>
           <ChevronDown size={14} />
+
+          {/* Hidden Month Picker */}
+          <input
+            ref={monthPickerRef}
+            type="month"
+            className="absolute inset-0 opacity-0 pointer-events-none"
+          />
         </button>
       </div>
     </div>
