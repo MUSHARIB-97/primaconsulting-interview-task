@@ -42,7 +42,7 @@ export const menuItems = [
       {
         name: "Log out",
         icon: LogOut,
-        path: "/logout",
+        action: "logout",
       },
     ],
   },

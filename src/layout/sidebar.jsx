@@ -2,8 +2,16 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import { menuItems } from "../helper/constant";
+import { useState } from "react";
+import Modal from "../components/modal";
 
 const Sidebar = ({ open, setOpen, collapsed, setCollapsed }) => {
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+  const handleLogout = () => {
+    console.log("User logged out");
+    setShowLogoutModal(false);
+  };
   return (
     <>
       {open && (
@@ -15,7 +23,7 @@ const Sidebar = ({ open, setOpen, collapsed, setCollapsed }) => {
 
       <aside
         className={`
-          fixed top-0 left-0 z-50 h-screen bg-white border-r border-gray-200
+          fixed top-0 left-0 z-30 h-screen bg-white border-r border-gray-200
           transition-all duration-300
           ${collapsed ? "w-20" : "w-64"}
           ${open ? "translate-x-0" : "-translate-x-full"}
@@ -60,24 +68,25 @@ const Sidebar = ({ open, setOpen, collapsed, setCollapsed }) => {
 
                   return (
                     <div key={item.name} className="relative group">
-                      <NavLink
-                        to={item.path}
-                        className={({ isActive }) =>
-                          `
-                          w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-all
-                          ${
-                            isActive
-                              ? "bg-purple-100 text-purple-600"
-                              : "text-gray-600 hover:bg-gray-100"
+                      {item.action === "logout" ? (
+                        <button
+                          onClick={() => setShowLogoutModal(true)}
+                          className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-all text-red-600 hover:bg-red-100 ${collapsed ? "justify-center" : ""}`}
+                        >
+                          <Icon size={18} />
+                          {!collapsed && <span>{item.name}</span>}
+                        </button>
+                      ) : (
+                        <NavLink
+                          to={item.path}
+                          className={({ isActive }) =>
+                            `w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-all ${isActive ? "bg-purple-100 text-purple-600" : "text-gray-600 hover:bg-gray-100"} ${collapsed ? "justify-center" : ""}`
                           }
-                          ${collapsed ? "justify-center" : ""}
-                        `
-                        }
-                      >
-                        <Icon size={18} />
-
-                        {!collapsed && <span>{item.name}</span>}
-                      </NavLink>
+                        >
+                          <Icon size={18} />
+                          {!collapsed && <span>{item.name}</span>}
+                        </NavLink>
+                      )}
 
                       {/* Tooltip */}
                       {collapsed && (
@@ -93,6 +102,15 @@ const Sidebar = ({ open, setOpen, collapsed, setCollapsed }) => {
           ))}
         </div>
       </aside>
+      <Modal
+        isOpen={showLogoutModal}
+        onClose={() => setShowLogoutModal(false)}
+        title="Are you sure you want to logout?"
+        description="You will be logged out from your account."
+        onConfirm={handleLogout}
+        confirmText="Confirm"
+        cancelText="Cancel"
+      />
     </>
   );
 };

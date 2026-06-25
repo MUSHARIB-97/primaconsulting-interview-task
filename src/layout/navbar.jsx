@@ -2,17 +2,25 @@ import { Bell, Menu, ChevronDown } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { menuItems, profileMenu } from "../helper/constant";
+import Modal from "../components/modal";
 
 const Navbar = ({ setOpen }) => {
   const location = useLocation();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const profileRef = useRef(null);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const allRoutes = menuItems.flatMap((section) => section.items);
 
   const activeRoute = allRoutes.find(
     (route) => route.path === location.pathname,
   );
+
+  const handleLogout = () => {
+    console.log("User logged out");
+    setShowLogoutModal(false);
+    setIsProfileOpen(false);
+  };
 
   // Close menu on outside click
   useEffect(() => {
@@ -94,6 +102,13 @@ const Navbar = ({ setOpen }) => {
                     return (
                       <button
                         key={item.name}
+                        onClick={() => {
+                          if (item.name === "Logout") {
+                            setShowLogoutModal(true);
+                          } else {
+                            setIsProfileOpen(false);
+                          }
+                        }}
                         className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-left text-gray-600 transition-colors hover:bg-gray-50"
                       >
                         <Icon size={16} />
@@ -107,6 +122,15 @@ const Navbar = ({ setOpen }) => {
           </div>
         </div>
       </div>
+      <Modal
+        isOpen={showLogoutModal}
+        onClose={() => setShowLogoutModal(false)}
+        title="Are you sure you want to logout?"
+        description="You will be logged out from your account."
+        onConfirm={handleLogout}
+        confirmText="Confirm"
+        cancelText="Cancel"
+      />
     </header>
   );
 };
