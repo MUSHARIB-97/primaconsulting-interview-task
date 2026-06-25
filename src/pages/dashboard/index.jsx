@@ -1,5 +1,6 @@
 import StatsCard from "../../components/statsCard";
 import { statsData } from "../../helper/constant";
+import ShipmentFiltration from "./shipment-filtration";
 
 const Dashboard = () => {
   return (
@@ -18,10 +19,7 @@ const Dashboard = () => {
         ))}
       </div>
       <div className="p-4 bg-white border border-gray-100 shadow-sm rounded-xl lg:rounded-2xl lg:p-5">
-        <h2 className="text-lg font-bold text-black">Summary</h2>
-        <p className="text-gray-600">
-          This is a simple summary of the dashboard content.
-        </p>
+        <ShipmentFiltration />
       </div>
     </div>
   );
