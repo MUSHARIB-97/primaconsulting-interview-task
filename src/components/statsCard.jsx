@@ -37,7 +37,9 @@ const StatsCard = ({ title, value, icon: Icon, isLoading }) => {
             {/* trend */}
             <div className="flex flex-col items-center gap-1 lg:items-center">
               <div className="flex items-center gap-2">
-                <span className="flex items-center justify-center w-5 h-5 text-green-500 rounded-full bg-green-50">
+                <span
+                  className={`flex items-center justify-center w-5 h-5 ${title?.includes("Pending") ? "text-red-500 bg-red-100" : "text-green-500 bg-green-100"} rounded-full`}
+                >
                   {title?.includes("Pending") ? (
                     <ChevronDown size={12} />
                   ) : (

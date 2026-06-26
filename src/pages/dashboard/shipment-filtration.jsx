@@ -56,43 +56,26 @@ const ShipmentFiltration = ({
         )}
       </div>
 
-      <div className="flex items-center w-full gap-3 lg:w-auto" ref={filterRef}>
-        <div className="relative flex-1 gap-2 lg:flex">
+      <div className="flex items-center w-full gap-3 lg:w-auto">
+        {/* Filter */}
+        <div className="relative flex-1 lg:flex-none" ref={filterRef}>
           <button
             onClick={() => setMenuOpen((open) => !open)}
-            className="flex items-center justify-center w-full gap-2 px-4 py-3 mb-4 text-sm transition border border-gray-100 lg:mb-0 bg-gray-50 rounded-xl hover:bg-gray-100"
+            className="flex items-center justify-center w-full gap-2 px-4 py-3 text-sm transition border border-gray-100 bg-gray-50 rounded-xl hover:bg-gray-100 whitespace-nowrap"
           >
             <Filter size={16} className="text-purple-500" />
-            <span className="whitespace-nowrap">
-              {activeFilter && activeFilter.value
-                ? activeFilter.label
-                : "Filter"}
-            </span>
+
+            <span>{activeFilter?.value ? activeFilter.label : "Filter"}</span>
+
             <ChevronDown
               size={14}
               className={`transition-transform ${menuOpen ? "rotate-180" : ""}`}
             />
           </button>
 
-          {/* Date Picker */}
-          <button
-            onClick={openMonthPicker}
-            className="flex items-center justify-center w-full gap-2 px-4 py-3 text-sm transition border border-gray-100 bg-gray-50 rounded-xl hover:bg-gray-100 whitespace-nowrap"
-          >
-            <CalendarDays size={16} className="text-purple-500" />
-            <span>March 2025</span>
-            <ChevronDown size={14} />
-
-            {/* Hidden Month Picker */}
-            <input
-              ref={monthPickerRef}
-              type="month"
-              className="absolute inset-0 opacity-0 pointer-events-none"
-            />
-          </button>
-
+          {/* Filter Menu */}
           {menuOpen && (
-            <div className="absolute right-0 z-20 mt-2 overflow-hidden bg-white border border-gray-100 shadow-lg w-52 rounded-xl">
+            <div className="absolute right-0 z-30 w-56 mt-2 overflow-hidden bg-white border border-gray-100 shadow-lg rounded-xl">
               {statusFilters.map((item) => (
                 <button
                   key={item.value || "all"}
@@ -100,7 +83,7 @@ const ShipmentFiltration = ({
                     onStatusChange(item.value);
                     setMenuOpen(false);
                   }}
-                  className={`w-full px-4 py-2.5 text-sm text-left transition hover:bg-gray-50 ${
+                  className={`w-full px-4 py-3 text-sm text-left transition hover:bg-gray-50 ${
                     item.value === status
                       ? "bg-purple-50 text-purple-600 font-medium"
                       : "text-gray-600"
@@ -111,6 +94,24 @@ const ShipmentFiltration = ({
               ))}
             </div>
           )}
+        </div>
+
+        {/* Date Picker */}
+        <div className="relative flex-1 lg:flex-none">
+          <button
+            onClick={openMonthPicker}
+            className="flex items-center justify-center w-full gap-2 px-4 py-3 text-sm transition border border-gray-100 bg-gray-50 rounded-xl hover:bg-gray-100 whitespace-nowrap"
+          >
+            <CalendarDays size={16} className="text-purple-500" />
+            <span>March 2025</span>
+            <ChevronDown size={14} />
+
+            <input
+              ref={monthPickerRef}
+              type="month"
+              className="absolute inset-0 opacity-0 pointer-events-none"
+            />
+          </button>
         </div>
       </div>
     </div>
