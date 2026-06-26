@@ -75,7 +75,7 @@ const ShipmentFiltration = ({
 
           {/* Filter Menu */}
           {menuOpen && (
-            <div className="absolute right-0 z-30 w-56 mt-2 overflow-hidden bg-white border border-gray-100 shadow-lg rounded-xl">
+            <div className="absolute right-0 z-30 w-full mt-2 overflow-hidden bg-white border border-gray-100 shadow-lg md:w-56 rounded-xl">
               {statusFilters.map((item) => (
                 <button
                   key={item.value || "all"}
@@ -109,7 +109,7 @@ const ShipmentFiltration = ({
             <input
               ref={monthPickerRef}
               type="month"
-              className="absolute inset-0 opacity-0 pointer-events-none"
+              className="absolute inset-0 w-full opacity-0 pointer-events-none"
             />
           </button>
         </div>
