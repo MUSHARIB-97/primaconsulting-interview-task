@@ -1,4 +1,9 @@
-import { MoreHorizontal } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronUp,
+  MoreHorizontal,
+  TrendingUp,
+} from "lucide-react";
 import { formatNumber } from "../helper/format";
 
 const StatsCard = ({ title, value, icon: Icon, isLoading }) => {
@@ -21,11 +26,39 @@ const StatsCard = ({ title, value, icon: Icon, isLoading }) => {
 
       <div className="mt-3">
         {isLoading ? (
-          <div className="w-20 h-7 rounded bg-gray-100 animate-pulse" />
+          <div className="w-20 bg-gray-100 rounded h-7 animate-pulse" />
         ) : (
-          <p className="text-xl font-bold text-black lg:text-2xl">
-            {formatNumber(value)}
-          </p>
+          <div className="flex items-start justify-between md:items-center">
+            <div>
+              <p className="font-bold text-black text-md lg:text-xl">
+                {formatNumber(value)}
+              </p>
+            </div>
+            {/* trend */}
+            <div className="flex flex-col items-center gap-1 lg:items-center">
+              <div className="flex items-center gap-2">
+                <span className="flex items-center justify-center w-5 h-5 text-green-500 rounded-full bg-green-50">
+                  {title?.includes("Pending") ? (
+                    <ChevronDown size={12} />
+                  ) : (
+                    <ChevronUp size={12} />
+                  )}
+                </span>
+
+                <p className="text-xs text-gray-400">
+                  {title?.includes("Pending") ? "Down" : "Up by"}{" "}
+                  <span
+                    className={` ${title?.includes("Pending") ? "text-red-500 bg-red-100 px-1 py-0 rounded-full" : "text-green-500 bg-green-100 px-1 py-0 rounded-full"}`}
+                  >
+                    {title?.includes("Pending") ? "1.4%" : "2.9%"}
+                  </span>
+                </p>
+              </div>
+              <p className="ml-0 text-xs text-gray-400 md:ml-2">
+                {title?.includes("Pending") ? "from last week" : "this week"}
+              </p>
+            </div>
+          </div>
         )}
       </div>
     </div>

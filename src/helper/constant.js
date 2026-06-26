@@ -31,7 +31,6 @@ export const menuItems = [
 export const profileMenu = [
   { name: "Profile", icon: User },
   { name: "Settings", icon: Settings },
-  { name: "Logout", icon: LogOut },
 ];
 
 export const statusFilters = [
@@ -49,7 +48,11 @@ export const statusFilters = [
 export const pageSizeOptions = [12, 25, 50, 100];
 
 export const buildStatsCards = (stats = {}) => [
-  { title: "Total Shipments", value: stats.total_shipments, icon: PackageCheck },
+  {
+    title: "Total Shipments",
+    value: stats.total_shipments,
+    icon: PackageCheck,
+  },
   { title: "Pending", value: stats.pending, icon: Clock3 },
   { title: "Delivered", value: stats.delivered, icon: Truck },
   { title: "Completed", value: stats.completed, icon: CheckCircle2 },

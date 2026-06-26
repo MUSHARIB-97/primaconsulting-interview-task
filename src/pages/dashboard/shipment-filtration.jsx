@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Search, ChevronDown, Filter, X } from "lucide-react";
+import { Search, ChevronDown, Filter, X, CalendarDays } from "lucide-react";
 import { statusFilters } from "../../helper/constant";
 
 const ShipmentFiltration = ({
@@ -10,6 +10,11 @@ const ShipmentFiltration = ({
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const filterRef = useRef(null);
+  const monthPickerRef = useRef(null);
+
+  const openMonthPicker = () => {
+    monthPickerRef.current?.showPicker?.();
+  };
 
   useEffect(() => {
     const close = (event) => {
@@ -25,12 +30,14 @@ const ShipmentFiltration = ({
 
   return (
     <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
-      <h2 className="text-lg font-semibold whitespace-nowrap">Shipments Data</h2>
+      <h2 className="text-lg font-semibold whitespace-nowrap">
+        Shipments Data
+      </h2>
 
       <div className="relative flex-1">
         <Search
           size={18}
-          className="absolute text-gray-400 -translate-y-1/2 left-4 top-1/2"
+          className="absolute text-purple-500 -translate-y-1/2 left-4 top-1/2"
         />
         <input
           type="text"
@@ -50,12 +57,12 @@ const ShipmentFiltration = ({
       </div>
 
       <div className="flex items-center w-full gap-3 lg:w-auto" ref={filterRef}>
-        <div className="relative flex-1 lg:flex-none">
+        <div className="relative flex-1 gap-2 lg:flex">
           <button
             onClick={() => setMenuOpen((open) => !open)}
-            className="flex items-center justify-center w-full gap-2 px-4 py-3 text-sm transition border border-gray-100 bg-gray-50 rounded-xl hover:bg-gray-100"
+            className="flex items-center justify-center w-full gap-2 px-4 py-3 mb-4 text-sm transition border border-gray-100 lg:mb-0 bg-gray-50 rounded-xl hover:bg-gray-100"
           >
-            <Filter size={16} />
+            <Filter size={16} className="text-purple-500" />
             <span className="whitespace-nowrap">
               {activeFilter && activeFilter.value
                 ? activeFilter.label
@@ -67,8 +74,25 @@ const ShipmentFiltration = ({
             />
           </button>
 
+          {/* Date Picker */}
+          <button
+            onClick={openMonthPicker}
+            className="flex items-center justify-center w-full gap-2 px-4 py-3 text-sm transition border border-gray-100 bg-gray-50 rounded-xl hover:bg-gray-100 whitespace-nowrap"
+          >
+            <CalendarDays size={16} className="text-purple-500" />
+            <span>March 2025</span>
+            <ChevronDown size={14} />
+
+            {/* Hidden Month Picker */}
+            <input
+              ref={monthPickerRef}
+              type="month"
+              className="absolute inset-0 opacity-0 pointer-events-none"
+            />
+          </button>
+
           {menuOpen && (
-            <div className="absolute right-0 z-20 w-52 mt-2 overflow-hidden bg-white border border-gray-100 shadow-lg rounded-xl">
+            <div className="absolute right-0 z-20 mt-2 overflow-hidden bg-white border border-gray-100 shadow-lg w-52 rounded-xl">
               {statusFilters.map((item) => (
                 <button
                   key={item.value || "all"}
@@ -76,10 +100,11 @@ const ShipmentFiltration = ({
                     onStatusChange(item.value);
                     setMenuOpen(false);
                   }}
-                  className={`w-full px-4 py-2.5 text-sm text-left transition hover:bg-gray-50 ${item.value === status
+                  className={`w-full px-4 py-2.5 text-sm text-left transition hover:bg-gray-50 ${
+                    item.value === status
                       ? "bg-purple-50 text-purple-600 font-medium"
                       : "text-gray-600"
-                    }`}
+                  }`}
                 >
                   {item.label}
                 </button>

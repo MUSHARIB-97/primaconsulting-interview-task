@@ -17,7 +17,6 @@ const Navbar = ({ setOpen }) => {
   );
 
   const handleLogout = () => {
-    console.log("User logged out");
     setShowLogoutModal(false);
     setIsProfileOpen(false);
   };
@@ -66,12 +65,12 @@ const Navbar = ({ setOpen }) => {
               <img
                 src="https://i.pravatar.cc/40"
                 alt="profile"
-                className="object-cover w-10 h-10 rounded-full"
+                className="object-contain w-10 h-10 rounded-full"
               />
 
               {/* Desktop only */}
               <div className="items-center hidden gap-4 sm:flex">
-                <div>
+                <div className="flex flex-col items-start">
                   <h4 className="text-sm font-medium">Dea Putri</h4>
                   <p className="text-xs text-gray-400">Manager</p>
                 </div>
@@ -102,14 +101,7 @@ const Navbar = ({ setOpen }) => {
                     return (
                       <button
                         key={item.name}
-                        onClick={() => {
-                          if (item.name === "Logout") {
-                            setShowLogoutModal(true);
-                          } else {
-                            setIsProfileOpen(false);
-                          }
-                        }}
-                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-left text-gray-600 transition-colors hover:bg-gray-50"
+                        className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm text-left text-gray-600 transition-colors hover:bg-gray-50`}
                       >
                         <Icon size={16} />
                         <span>{item.name}</span>
