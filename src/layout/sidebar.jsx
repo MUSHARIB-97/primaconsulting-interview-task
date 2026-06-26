@@ -23,7 +23,7 @@ const Sidebar = ({ open, setOpen, collapsed, setCollapsed }) => {
 
       <aside
         className={`
-          fixed top-0 left-0 z-30 h-screen bg-white border-r border-gray-200
+          fixed top-0 left-0 z-50 h-screen bg-white border-r border-gray-200
           transition-all duration-300
           ${collapsed ? "w-20" : "w-64"}
           ${open ? "translate-x-0" : "-translate-x-full"}
