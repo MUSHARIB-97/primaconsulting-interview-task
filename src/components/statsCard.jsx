@@ -28,14 +28,14 @@ const StatsCard = ({ title, value, icon: Icon, isLoading }) => {
         {isLoading ? (
           <div className="w-20 bg-gray-100 rounded h-7 animate-pulse" />
         ) : (
-          <div className="flex items-start justify-between md:items-center">
+          <div className="flex flex-col items-start justify-between gap-2 md:gap-0 md:flex-row">
             <div>
               <p className="font-bold text-black text-md lg:text-xl">
                 {formatNumber(value)}
               </p>
             </div>
             {/* trend */}
-            <div className="flex flex-col items-center gap-1 lg:items-center">
+            <div className="flex flex-col items-start w-full gap-1 md:items-end md:gap-0">
               <div className="flex items-center gap-2">
                 <span
                   className={`flex items-center justify-center w-5 h-5 ${title?.includes("Pending") ? "text-red-500 bg-red-100" : "text-green-500 bg-green-100"} rounded-full`}
