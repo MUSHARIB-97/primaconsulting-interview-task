@@ -45,10 +45,14 @@ const Sidebar = ({ open, setOpen, collapsed, setCollapsed }) => {
           </button>
 
           <button
-            className="absolute bottom-0 hidden p-1 bg-white border border-gray-300 rounded-full -right-3 lg:flex hover:bg-gray-100"
+            className="absolute hidden p-1 bg-white border border-purple-300 rounded-full -bottom-8 -right-3 lg:flex hover:bg-purple-100"
             onClick={() => setCollapsed(!collapsed)}
           >
-            {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+            {collapsed ? (
+              <ChevronRight size={16} color="purple" />
+            ) : (
+              <ChevronLeft size={16} color="purple" />
+            )}
           </button>
         </div>
 

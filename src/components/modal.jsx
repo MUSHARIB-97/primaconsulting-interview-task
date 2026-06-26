@@ -1,5 +1,4 @@
 import { X } from "lucide-react";
-import { useEffect } from "react";
 
 const Modal = ({
   isOpen,
@@ -14,13 +13,9 @@ const Modal = ({
 
   return (
     <>
-      {/* Overlay */}
       <div className="fixed inset-0 z-50 bg-black/40" onClick={onClose} />
-
-      {/* Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
         <div className="w-full max-w-md bg-white shadow-lg rounded-2xl">
-          {/* Header */}
           <div className="flex items-center justify-between p-5 border-b border-gray-100">
             <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
 
@@ -32,14 +27,12 @@ const Modal = ({
             </button>
           </div>
 
-          {/* Body */}
           {description && (
             <div className="p-5">
               <p className="text-sm text-gray-600">{description}</p>
             </div>
           )}
 
-          {/* Footer */}
           <div className="flex justify-end gap-3 p-5 border-t border-gray-100">
             <button
               onClick={onClose}

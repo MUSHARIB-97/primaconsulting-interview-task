@@ -1,9 +1,10 @@
-const Table = ({ columns, rows }) => {
+import { PackageX } from "lucide-react";
+
+const Table = ({ columns, rows, isLoading, skeletonRows = 8 }) => {
   return (
     <div className="mt-6 overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full min-w-[900px] border-collapse">
-          {/* Header */}
           <thead>
             <tr className="border-b border-gray-100">
               {columns.map((column) => (
@@ -17,31 +18,45 @@ const Table = ({ columns, rows }) => {
             </tr>
           </thead>
 
-          {/* Body */}
           <tbody>
-            {rows.map((row, rowIndex) => (
-              <tr
-                key={rowIndex}
-                className="transition border-b border-gray-100 hover:bg-gray-50"
-              >
-                {columns.map((column) => (
-                  <td
-                    key={column.accessorKey}
-                    className="py-5 text-sm text-gray-600"
-                  >
-                    {column.cell
-                      ? column.cell({
-                          getValue: () => row[column.accessorKey],
-                          row,
-                        })
-                      : row[column.accessorKey]}
-                  </td>
-                ))}
-              </tr>
-            ))}
+            {isLoading
+              ? Array.from({ length: skeletonRows }).map((_, rowIndex) => (
+                <tr key={rowIndex} className="border-b border-gray-100">
+                  {columns.map((column) => (
+                    <td key={column.accessorKey} className="py-5">
+                      <div className="h-4 rounded bg-gray-100 animate-pulse" />
+                    </td>
+                  ))}
+                </tr>
+              ))
+              : rows.map((row) => (
+                <tr
+                  key={row.shipping_id}
+                  className="transition border-b border-gray-100 hover:bg-gray-50"
+                >
+                  {columns.map((column) => {
+                    const value = row[column.accessorKey];
+                    return (
+                      <td
+                        key={column.accessorKey}
+                        className="py-5 text-sm text-gray-600"
+                      >
+                        {column.cell ? column.cell({ value, row }) : value}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
+
+      {!isLoading && rows.length === 0 && (
+        <div className="flex flex-col items-center justify-center gap-2 py-16 text-gray-400">
+          <PackageX size={32} />
+          <p className="text-sm">No shipments match your search.</p>
+        </div>
+      )}
     </div>
   );
 };
