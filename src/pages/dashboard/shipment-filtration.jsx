@@ -56,7 +56,7 @@ const ShipmentFiltration = ({
         )}
       </div>
 
-      <div className="flex items-center w-full gap-3 lg:w-auto">
+      <div className="flex items-center w-full gap-2 lg:w-auto">
         {/* Filter */}
         <div className="relative flex-1 lg:flex-none" ref={filterRef}>
           <button
